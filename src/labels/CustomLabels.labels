@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>DJ_Overlapping_Contract_Dates_Error</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Overlapping Contract Dates Error</shortDescription>
+        <value>Date ranges of contracts for doctor cannot overlap.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_Overlapping_Contracts</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Overlapping Contracts</shortDescription>
+        <value>Date ranges of contracts cannot overlap.</value>
+    </labels>
+</CustomLabels>

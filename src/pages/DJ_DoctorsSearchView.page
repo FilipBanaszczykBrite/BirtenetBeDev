@@ -1,0 +1,49 @@
+<apex:page id="DJ_DoctorsSearchView" controller="DJ_DoctorsSearchController">
+    <apex:pageBlock >
+        <apex:pageMessages />
+        <apex:form id="searchForm" >
+            <c:DJ_SearchSpinner id="status"/>
+                <apex:pageBlockSection title="{!$Label.SearchDoctorsTitle}" columns="2" collapsible="false">
+                    <apex:inputText value="{! queryFirstName }" label="{!$Label.SearchFirstName}" />
+                    <apex:inputText value="{! queryLastName }" label="{!$Label.SearchLastName}" />
+                    <apex:inputText value="{! queryEmail }" label="{!$Label.SearchEmail}" />
+                    <apex:inputText  value="{! queryCountry }" label="{!$Label.SearchCountry}" />
+                </apex:pageBlockSection>
+                <apex:commandButton value="{!$Label.SearchButton}" reRender="searchTable, searchFrom, resultSection" status="{!$Component.searchForm.status.spinner.status}" action="{! search }" style="width: 100px; margin-right:20px; margin-top:20px; margin-bottom:20px;
+                                                                               margin-left: calc(50% - 110px)"/>
+                <apex:commandButton value="{!$Label.ClearButton}" action="{! clear }" reRender="searchTable, searchForm, resultSection" style="width: 100px"/>
+
+            <apex:pageBlockSection  id="resultSection" title="{!$Label.SearchResultsTitle} ({! resultsCount } {!IF( resultsCount != 1, $Label.MultipleResultsCount, $Label.ResultsCount )})" collapsible="false"  columns="1" >
+                <apex:pageBlockTable id="searchTable" value="{! doctors }" var="doctor">
+                    <apex:column headerValue="{!$Label.ViewColumnHeader}" style="width:10%" ><apex:outputLink value="/{!doctor.Id}">{!$Label.ViewColumnHeader}</apex:outputLink></apex:column>
+                    <apex:column value="{!doctor.First_Name__c} {!doctor.Last_Name__c}" headerValue="{!$Label.FullNameColumnHeader}" style="width:20%"/>
+                    <apex:column value="{!doctor.Email__c}" style="width:20%" headerValue="{!$Label.EmailColumnHeader}"/>
+                    <apex:column value="{!doctor.License_Number__c}" style="width:20%" headerValue="{!$Label.LicenseNumberColumnHeader}"/>
+                    <apex:column  headerValue="{!$Label.FullAddressColumnHeader}" value="{!doctor.Street__c} {!doctor.Postal_Code__c} {!doctor.City__c} {!doctor.Country__c}" style="width:30%"/>
+                </apex:pageBlockTable>
+                <apex:outputText>
+                    <div style="position: relative; margin-bottom: 17px; margin-top: 10px">
+                        <div style="display: inline; position: absolute; left: 0">
+                            {!$Label.DJ_RecordsPerPage} [
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">2<apex:param value="{!2}" assignTo="{!resultPageSize}"/></apex:commandLink>,&nbsp;
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">5<apex:param value="{!5}" assignTo="{!resultPageSize}"/></apex:commandLink>,&nbsp;
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">10]<apex:param value="{!10}" assignTo="{!resultPageSize}"/></apex:commandLink>
+                        </div>
+                        <div style="display: inline; position: absolute; left: calc(50% - 120px)">
+                            <apex:commandButton style="width:60px" action="{!setCon.first}" reRender="searchTable, resultSection" disabled="{!!setCon.hasPrevious}" value="{!$Label.DJ_FirstPage}"></apex:commandButton>
+                            <apex:commandButton style="width:60px" action="{!setCon.previous}" reRender="searchTable, resultSection" disabled="{!!setCon.hasPrevious}" value="{!$Label.DJ_PreviousPage}"></apex:commandButton>
+                            <apex:commandButton style="width:60px" action="{!setCon.next}" reRender="searchTable, resultSection" disabled="{!!setCon.hasNext}" value="{!$Label.DJ_NextPage}"></apex:commandButton>
+                            <apex:commandButton style="width:60px" action="{!setCon.last}" reRender="searchTable, resultSection" disabled="{!!setCon.hasNext}" value="{!$Label.DJ_LastPage}"></apex:commandButton>
+                        </div>
+                    </div>
+                </apex:outputText>
+                <apex:outputText>
+                    <div style="text-align: center; margin-top: 10px">
+                    {!$Label.DJ_ShowingRecords} {!(setCon.pageNumber * resultPageSize) + 1 - resultPageSize}-{!IF((setCon.pageNumber * resultPageSize)>noOfRecords, noOfRecords,
+                        (setCon.pageNumber * resultPageSize))} {!$Label.RecordsOf} {!noOfRecords}
+                    </div>
+                </apex:outputText>
+            </apex:pageBlockSection>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>
