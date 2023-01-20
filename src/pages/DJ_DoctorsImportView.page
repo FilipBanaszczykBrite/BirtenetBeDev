@@ -37,7 +37,7 @@
                     <apex:column headerValue="{!$Label.DJ_LicenseNumberColumnHeader}" width="8%" value="{!doctor.doctor.License_Number__c}">
                     </apex:column>
                     <apex:column headerValue="{!$Label.DJ_StatusColumnHeader}" width="36%" >
-                        <font color="{!if(doctor.status='Success' || doctor.status='Ready to import','#008800','#990000')}">
+                        <font color="{!if(doctor.status=$Label.DJ_SuccessImport || doctor.status=$Label.DJ_ImportReadStatus ,'#008800','#990000')}">
                             <apex:outputtext value="{! doctor.status }" />
                         </font>
                     </apex:column>
