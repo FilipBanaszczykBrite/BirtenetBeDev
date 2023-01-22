@@ -1,9 +1,10 @@
-@RestResource(urlMapping='/doctors')
+@RestResource(urlMapping='/doctors/*')
 global with sharing class DJ_DoctorServiceAPI {
 
 
     @HttpGet
     global static void  doGet(){
+        System.debug('GET');
         RestRequest request = RestContext.request;
         RestResponse response = RestContext.response;
         String firstName = request.params.get('firstName') != null ? request.params.get('firstName') : '';
@@ -28,6 +29,7 @@ global with sharing class DJ_DoctorServiceAPI {
 
     @HttpPost
     global static void doPost(){
+        System.debug('POST');
         RestResponse response = RestContext.response;
         String body = RestContext.request.requestBody.toString();
         List<DJ_DoctorDTO> newDoctorsDtos = (List<DJ_DoctorDTO>) JSON.deserialize(body, List<DJ_DoctorDTO>.class);

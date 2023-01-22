@@ -1,0 +1,74 @@
+<apex:page id="DJDoctorIntegrationView" controller="DJ_DoctorsIntegrationController">
+    <apex:pageBlock>
+        <apex:pageMessages />
+        <apex:slds />
+        <apex:form id="searchForm" >
+            <c:DJ_SearchSpinner id="status"/>
+            <apex:outputPanel id="tstpopup">
+                <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!doctorCreatorDisplayed}"/>
+                <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!doctorCreatorDisplayed}">
+                    <apex:pageBlockSection columns="2">
+                        <apex:inputText value="{! newDoctor.firstName}" label="{!$Label.DJ_FirstNameColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.lastName}" label="{!$Label.DJ_LastNameColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.specialty}" label="{!$Label.DJ_FirstNameColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.email}" label="{!$Label.EmailColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.phone}" label="{!$Label.DJ_FirstNameColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.street}" label="{!$Label.DJ_StreetColumnHeader} "></apex:inputText>
+                        <apex:inputText value="{! newDoctor.city}" label="{!$Label.DJ_FirstNameColumnHeader} "></apex:inputText>
+                    </apex:pageBlockSection>
+                    <apex:commandButton value="Save Doctor" action="{! postNewDoctor }" rerender="tstpopup"/>
+                </apex:outputPanel>
+                <style type="text/css">
+                        .custPopup{ background-color: white; border-width: 2px; border-style: solid; z-index: 9999; left: 50%; padding:11px; position: absolute; width: 600px; margin-left: -240px; top:100px; }
+                        .popupBackground{ background-color:black; opacity: 0.20; filter: alpha(opacity = 20); position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 9998; }
+                </style>
+            </apex:outputPanel>
+            <apex:pageBlockSection title="{!$Label.SearchDoctorsTitle}" columns="2" collapsible="false">
+                <apex:outputText style="visibility:hidden"></apex:outputText>
+                <apex:commandButton value="{!$Label.NewDoctorButton}" reRender="tstpopup, resultSection"
+                                    action="{! newDoctor }"
+                                    style="width: 100px;  margin-top:5px; margin-bottom:5px; margin-left: calc(50% + 150px)"/>
+
+                <apex:inputText value="{! queryFirstName }" label="{!$Label.SearchFirstName}" />
+                <apex:inputText value="{! queryLastName }" label="{!$Label.SearchLastName}" />
+                <apex:inputText value="{! queryEmail }" label="{!$Label.SearchEmail}" />
+                <apex:inputText  value="{! queryCountry }" label="{!$Label.SearchCountry}" />
+            </apex:pageBlockSection>
+            <apex:commandButton value="{!$Label.SearchButton}" reRender="searchTable, searchFrom, resultSection" status="{!$Component.searchForm.status.spinner.status}" action="{! search }" style="width: 100px; margin-right:20px; margin-top:20px; margin-bottom:20px;
+                                                                               margin-left: calc(50% - 110px)"/>
+            <apex:commandButton value="{!$Label.ClearButton}" action="{! clear }" reRender="searchTable, searchForm, resultSection" style="width: 100px"/>
+
+            <apex:pageBlockSection  id="resultSection" title="{!$Label.SearchResultsTitle} ({! resultsCount } {!IF( resultsCount != 1, $Label.MultipleResultsCount, $Label.ResultsCount )})" collapsible="false"  columns="1" >
+                <apex:pageBlockTable id="searchTable" value="{! doctors }" var="doctor">
+                    <apex:column  style="width:10%" >
+                        <apex:outputLink value="/{!doctor.Id}">{!$Label.ViewColumnHeader}</apex:outputLink> |
+                        <apex:commandLink >{!$Label.EditColumnHeader}</apex:commandLink> |
+                        <apex:commandLink >{!$Label.DeleteColumnHeader}</apex:commandLink></apex:column>
+                    <apex:column value="{!doctor.firstName} {!doctor.lastName}" headerValue="{!$Label.FullNameColumnHeader}" style="width:20%"/>
+                    <apex:column value="{!doctor.email}" style="width:20%" headerValue="{!$Label.EmailColumnHeader}"/>
+                    <apex:column value="{!doctor.licenseNumber}" style="width:20%" headerValue="{!$Label.LicenseNumberColumnHeader}"/>
+                    <apex:column  headerValue="{!$Label.FullAddressColumnHeader}" value="{!doctor.street} {!doctor.postalCode} {!doctor.city}  " style="width:30%"/>
+                </apex:pageBlockTable>
+                <apex:outputText>
+                    <div style="position: relative; margin-bottom: 17px; margin-top: 10px">
+                        <div style="display: inline; position: absolute; left: 0">
+                            {!$Label.DJ_RecordsPerPage} [
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">2<apex:param value="{!2}" assignTo="{!resultPageSize}"/></apex:commandLink>,&nbsp;
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">5<apex:param value="{!5}" assignTo="{!resultPageSize}"/></apex:commandLink>,&nbsp;
+                            <apex:commandLink action="{!refreshPageSize}" reRender="searchTable, resultSection">10]<apex:param value="{!10}" assignTo="{!resultPageSize}"/></apex:commandLink>
+                        </div>
+                        <div style="display: inline; position: absolute; left: calc(50% - 120px)">
+
+                        </div>
+                    </div>
+                </apex:outputText>
+                <apex:outputText>
+                    <div style="text-align: center; margin-top: 10px">
+
+                    </div>
+                </apex:outputText>
+
+            </apex:pageBlockSection>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>
