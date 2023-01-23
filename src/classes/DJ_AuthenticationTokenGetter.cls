@@ -1,7 +1,5 @@
-
-
 public with sharing class DJ_AuthenticationTokenGetter {
-
+    
 
     public static String getToken(){
         Http httpCls = new Http();

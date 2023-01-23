@@ -1,0 +1,2 @@
+<apex:page id="DJ_HospitalIntegrationView" controller="DJ_HospitalIntegrationController">
+</apex:page>

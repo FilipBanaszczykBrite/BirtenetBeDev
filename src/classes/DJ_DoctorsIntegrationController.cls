@@ -1,5 +1,3 @@
-
-
 public with sharing class DJ_DoctorsIntegrationController {
 
 
@@ -8,25 +6,17 @@ public with sharing class DJ_DoctorsIntegrationController {
     public String queryLastName {get; set;}
     public String queryEmail {get; set;}
     public String queryCountry {get; set;}
+    public String formDateOfBirth {get; set;}
+    public String formStartOfCareer {get; set;}
     public Integer resultPageSize {get; set;}
     public Integer currentPage {get; set;}
     public Integer noOfRecords{get; set;}
     public Boolean doctorCreatorDisplayed {get; set;}
     public DJ_DoctorWrapper newDoctor {get; set;}
-//    public ApexPages.StandardSetController setCon {
-//        get {
-//            if(setCon == null) {
-//                setCon = new ApexPages.StandardSetController(queryDoctors());
-//                setCon.setPageSize(resultPageSize);
-//                noOfRecords = setCon.getResultSize();
-//            }
-//            return setCon;
-//        }
-//        set;
-//    }
+    public String selectedDoctorId {get; set;}
+    public Boolean isForEdit {get; set;}
 
-    private final String baseQuery = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
-    private String currentQuery = baseQuery;
+    private final String baseEndpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
     private String accessToken;
 
 
@@ -37,14 +27,17 @@ public with sharing class DJ_DoctorsIntegrationController {
         queryLastName = '';
         queryEmail = '';
         queryCountry = '';
+        formDateOfBirth = '';
+        formStartOfCareer = '';
         doctorCreatorDisplayed = false;
         newDoctor = new DJ_DoctorWrapper();
         accessToken = DJ_AuthenticationTokenGetter.getToken();
+        queryDoctors();
     }
 
 
     public List<DJ_DoctorWrapper> getDoctors() {
-        return queryDoctors();
+        return searchDoctorsList;
     }
 
 
@@ -54,16 +47,47 @@ public with sharing class DJ_DoctorsIntegrationController {
 
 
     public void search(){
-
+        queryDoctors();
     }
 
-    public void newDoctor(){
+
+    public void openNewDoctor(){
+        isForEdit = false;
+        newDoctor = new DJ_DoctorWrapper();
         doctorCreatorDisplayed = true;
     }
 
 
-    public void postNewDoctor(){
+    public void openEdit (){
+        isForEdit = true;
+        doctorCreatorDisplayed = true;
+        for(DJ_DoctorWrapper wrapper : searchDoctorsList){
+            if(wrapper.Id == selectedDoctorId){
+                newDoctor = wrapper;
+            }
+        }
+    }
+
+
+    public void closePopup(){
         doctorCreatorDisplayed = false;
+    }
+
+
+    public void saveDoctor(){
+        if(checkDates()){
+            doctorCreatorDisplayed = false;
+            if(isForEdit){
+                updateDoctor();
+            }
+            else{
+                postNewDoctor();
+            }
+        }
+        else{
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.IntegrationDateError));
+            closePopup();
+        }
     }
 
 
@@ -72,34 +96,94 @@ public with sharing class DJ_DoctorsIntegrationController {
         queryLastName = '';
         queryEmail = '';
         queryCountry = '';
-        //setCon = new ApexPages.StandardSetController(queryDoctors());
-        //setCon.setPageSize(resultPageSize);
-        //noOfRecords = setCon.getResultSize();
+        searchDoctorsList.clear();
     }
 
 
     public PageReference refreshPageSize() {
-        //setCon.setPageSize(resultPageSize);
         return null;
     }
 
 
-    private List<DJ_DoctorWrapper> queryDoctors(){
-        System.debug('GET ' + baseQuery + getQueryParams());
+    public void deleteSelectedDoctor(){
+        deleteDoctor();
+    }
+
+
+    private void deleteDoctor(){
         Http httpCls = new Http();
         HttpRequest request = new HttpRequest();
-        List<DJ_DoctorWrapper> result = new List<DJ_DoctorWrapper>();
-        request.setEndpoint(baseQuery + getQueryParams());
+        request.setEndpoint(baseEndpoint + getQueryParams());
+        request.setHeader('Authorization','Bearer ' + accessToken);
+        request.setMethod('DELETE');
+        request.setHeader('Content-Type', 'application/json');
+        List<Id> wrappers = new List<Id>{selectedDoctorId};
+        String body = JSON.serialize(wrappers);
+        request.setBody('{ "ids": '+ body + ' }');
+        HttpResponse response = httpCls.send(request);
+        if(response.getStatusCode() == 200){
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.DeleteSuccessful));
+        }
+        queryDoctors();
+    }
+
+
+    private void postNewDoctor(){
+        Http httpCls = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(baseEndpoint + getQueryParams());
+        request.setHeader('Authorization','Bearer ' + accessToken);
+        request.setMethod('POST');
+        request.setHeader('Content-Type', 'application/json');
+        List<DJ_DoctorWrapper> wrappers = new List<DJ_DoctorWrapper>{newDoctor};
+        String body = JSON.serialize(wrappers);
+        request.setBody('{ "wrappers": '+ body + ' }');
+        HttpResponse response = httpCls.send(request);
+        if(response.getStatusCode() == 200){
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.CreateSuccessful));
+        }
+        queryDoctors();
+    }
+
+
+    private void updateDoctor(){
+        Http httpCls = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(baseEndpoint + getQueryParams());
+        request.setHeader('Authorization','Bearer ' + accessToken);
+        request.setMethod('PUT');
+        request.setHeader('Content-Type', 'application/json');
+        List<DJ_DoctorWrapper> wrappers = new List<DJ_DoctorWrapper>{newDoctor};
+        String body = JSON.serialize(wrappers);
+        request.setBody('{ "wrappers": '+ body + ' }');
+        HttpResponse response = httpCls.send(request);
+        if(response.getStatusCode() == 200){
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.EditSuccesful));
+        }
+        queryDoctors();
+    }
+
+
+    private void queryDoctors(){
+        Http httpCls = new Http();
+        HttpRequest request = new HttpRequest();
+        request.setEndpoint(baseEndpoint + getQueryParams());
         request.setHeader('Authorization','Bearer ' + accessToken);
         request.setMethod('GET');
         request.setHeader('Content-Type', 'application/json');
         HttpResponse response = httpCls.send(request);
         System.debug(response);
         if(response.getStatusCode() == 200){
-            result = (List<DJ_DoctorWrapper>) JSON.deserialize(response.getBody(), List<DJ_DoctorWrapper>.class);
-            System.debug(result.size());
+            searchDoctorsList = (List<DJ_DoctorWrapper>) JSON.deserialize(response.getBody(), List<DJ_DoctorWrapper>.class);
         }
-        return result;
+    }
+
+
+    private Boolean checkDates(){
+        Pattern datePattern = Pattern.compile('[0-9]{4}-[0-2][0-9]-[0-2][0-9]');
+        Matcher matchBirthDate = datePattern.matcher(newDoctor.dateOfBirth);
+        Matcher matchCareerDate = datePattern.matcher(newDoctor.startOfCareer);
+        return matchBirthDate.matches() && matchCareerDate.matches();
     }
 
 
@@ -122,8 +206,4 @@ public with sharing class DJ_DoctorsIntegrationController {
         }
         return result;
     }
-
-
-
-
 }

@@ -18,7 +18,7 @@
 
             </actionRegion>
             <apex:actionFunction name="checkboxCheck" action="{! checkSelected }"></apex:actionFunction>
-                <apex:pageBlockTable  rendered="{! fileRead}"  id="doctorsTable" value="{!doctors}" var="doctor">
+                <apex:pageBlockTable rendered="{! fileRead}"  id="doctorsTable" value="{!doctors}" var="doctor">
                     <apex:column width="3%">
                         <apex:inputCheckbox value="{!doctor.selected}" onChange="checkboxCheck()"></apex:inputCheckbox>
                     </apex:column>
@@ -26,7 +26,7 @@
                     </apex:column>
                     <apex:column headerValue="{!$Label.DJ_LastNameColumnHeader}" width="12%" value="{!doctor.doctor.Last_Name__c}">
                     </apex:column>
-                    <apex:column  headerValue="{!$Label.DJ_CountryColumnHeader}" width="10%" value="{!doctor.doctor.Country__c}">
+                    <apex:column headerValue="{!$Label.DJ_CountryColumnHeader}" width="10%" value="{!doctor.doctor.Country__c}">
                     </apex:column>
                     <apex:column headerValue="{!$Label.DJ_CityColumnHeader}" width="12%" value="{!doctor.doctor.City__c}">
                     </apex:column>

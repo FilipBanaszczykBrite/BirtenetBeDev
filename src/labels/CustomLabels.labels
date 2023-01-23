@@ -1,6 +1,174 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>BirthColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>BirthColumnHeader</shortDescription>
+        <value>Date of birth</value>
+    </labels>
+    <labels>
+        <fullName>CareerColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CareerColumnHeader</shortDescription>
+        <value>Start of career</value>
+    </labels>
+    <labels>
+        <fullName>ClearButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ClearButton</shortDescription>
+        <value>Clear</value>
+    </labels>
+    <labels>
+        <fullName>CreateSuccessful</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CreateSuccessful</shortDescription>
+        <value>New doctor created successfully</value>
+    </labels>
+    <labels>
+        <fullName>DJ_APIInvalidDates</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>APIInvalidDates</shortDescription>
+        <value>Date of birth should be earlier than date of start of career.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_APIInvalidLicenseNumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>APIInvalidLicenseNumber</shortDescription>
+        <value>License number should be at least 5 characters long and contain no special characters.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ChooseFileButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ChooseFileButton</shortDescription>
+        <value>Choose file...</value>
+    </labels>
+    <labels>
+        <fullName>DJ_CityColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CityColumnHeader</shortDescription>
+        <value>CIty</value>
+    </labels>
+    <labels>
+        <fullName>DJ_CountryColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>CountryColumnHeader</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>DJ_DeselectAllButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeselectAllButton</shortDescription>
+        <value>Deselect All</value>
+    </labels>
+    <labels>
+        <fullName>DJ_FirstNameColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FirstNameColumnHeader</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>DJ_FirstPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FirstPage</shortDescription>
+        <value>First</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ImportButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportButton</shortDescription>
+        <value>Import</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ImportDuplicateDoctor</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportDuplicateDoctor</shortDescription>
+        <value>Duplicate doctor with row:</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ImportDuplicateEmail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportDuplicateEmail</shortDescription>
+        <value>Duplicate email with row:</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ImportFileSizeExceeded</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportFileSizeExceeded</shortDescription>
+        <value>Size of imported file must not exceed 30KB.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ImportReadStatus</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ImportReadyStatus</shortDescription>
+        <value>Ready to import</value>
+    </labels>
+    <labels>
+        <fullName>DJ_InsertFailed</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InsertFailed</shortDescription>
+        <value>We encountered an error during import. Please validate your data and try again.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_InvalidImportFile</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvalidImportFile</shortDescription>
+        <value>Invalid file. Make sure that imported file is .csv format or properly converted .txt.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_InvertSelectionButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InvertSelectionButton</shortDescription>
+        <value>Invert Selection</value>
+    </labels>
+    <labels>
+        <fullName>DJ_LastNameColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LastNameColumnHeader</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>DJ_LastPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LastPage</shortDescription>
+        <value>Last</value>
+    </labels>
+    <labels>
+        <fullName>DJ_LicenseNumberColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LicenseNumberColumnHeader</shortDescription>
+        <value>License Number</value>
+    </labels>
+    <labels>
+        <fullName>DJ_NextPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NextPage</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
         <fullName>DJ_Overlapping_Contract_Dates_Error</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -13,5 +181,243 @@
         <protected>true</protected>
         <shortDescription>Overlapping Contracts</shortDescription>
         <value>Date ranges of contracts cannot overlap.</value>
+    </labels>
+    <labels>
+        <fullName>DJ_PostalCodeColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PostalCodeColumnHeader</shortDescription>
+        <value>Postal Code</value>
+    </labels>
+    <labels>
+        <fullName>DJ_PreviousPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PreviousPage</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ReadFileButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ReadFileButton</shortDescription>
+        <value>Read File</value>
+    </labels>
+    <labels>
+        <fullName>DJ_RecordsPerPage</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RecordsPerPage</shortDescription>
+        <value>Records per page</value>
+    </labels>
+    <labels>
+        <fullName>DJ_SelectAllButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SelectAllButton</shortDescription>
+        <value>Select All</value>
+    </labels>
+    <labels>
+        <fullName>DJ_ShowingRecords</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ShowingRecords</shortDescription>
+        <value>Showing</value>
+    </labels>
+    <labels>
+        <fullName>DJ_StatusColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StatusColumnHeader</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>DJ_StreetColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>StreetColumnHeader</shortDescription>
+        <value>Street</value>
+    </labels>
+    <labels>
+        <fullName>DJ_SuccessImport</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SuccessImport</shortDescription>
+        <value>Success</value>
+    </labels>
+    <labels>
+        <fullName>DeleteColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteColumnHeader</shortDescription>
+        <value>Delete</value>
+    </labels>
+    <labels>
+        <fullName>DeleteConfirmation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteConfirmation</shortDescription>
+        <value>You want to delete this doctor?</value>
+    </labels>
+    <labels>
+        <fullName>DeleteSuccessful</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>DeleteSuccessful</shortDescription>
+        <value>Doctor deleted successfully</value>
+    </labels>
+    <labels>
+        <fullName>EditColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EditColumnHeader</shortDescription>
+        <value>Edit</value>
+    </labels>
+    <labels>
+        <fullName>EditSuccesful</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EditSuccessful</shortDescription>
+        <value>Doctor edited successfully</value>
+    </labels>
+    <labels>
+        <fullName>EmailColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EmailColumnHeader</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>FullAddressColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FullAddressColumnHeader</shortDescription>
+        <value>Full Address</value>
+    </labels>
+    <labels>
+        <fullName>FullNameColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FullNameColumnHeader</shortDescription>
+        <value>Full Name</value>
+    </labels>
+    <labels>
+        <fullName>IntegrationDateError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>IntegrationDateError</shortDescription>
+        <value>Dates should be in YYYY-MM-DD format.</value>
+    </labels>
+    <labels>
+        <fullName>LicenseNumberColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>LicenseNumberColumnHeader</shortDescription>
+        <value>License Number</value>
+    </labels>
+    <labels>
+        <fullName>MultipleResultsCount</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>MultipleResultsCount</shortDescription>
+        <value>Doctors found</value>
+    </labels>
+    <labels>
+        <fullName>NationalityColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NationalityColumnHeader</shortDescription>
+        <value>Nationality</value>
+    </labels>
+    <labels>
+        <fullName>NewDoctorButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NewDoctorButton</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
+        <fullName>PhoneColumneHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>PhoneColumneHeader</shortDescription>
+        <value>Phone</value>
+    </labels>
+    <labels>
+        <fullName>RecordsOf</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>RecordsOf</shortDescription>
+        <value>records of</value>
+    </labels>
+    <labels>
+        <fullName>ResultsCount</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SingleResultCount</shortDescription>
+        <value>Doctor found</value>
+    </labels>
+    <labels>
+        <fullName>SearchButton</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchButton</shortDescription>
+        <value>Search</value>
+    </labels>
+    <labels>
+        <fullName>SearchCountry</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchCountry</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>SearchDoctorsTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchDoctorsTitle</shortDescription>
+        <value>Search Doctors</value>
+    </labels>
+    <labels>
+        <fullName>SearchEmail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchEmail</shortDescription>
+        <value>Email</value>
+    </labels>
+    <labels>
+        <fullName>SearchFirstName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchFirstName</shortDescription>
+        <value>First Name</value>
+    </labels>
+    <labels>
+        <fullName>SearchLastName</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchLastName</shortDescription>
+        <value>Last Name</value>
+    </labels>
+    <labels>
+        <fullName>SearchResultsTitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SearchResultsTitle</shortDescription>
+        <value>Search Results</value>
+    </labels>
+    <labels>
+        <fullName>SpecialityColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>SpecialityColumnHeader</shortDescription>
+        <value>Speciality</value>
+    </labels>
+    <labels>
+        <fullName>ViewColumnHeader</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>ViewColumnHeader</shortDescription>
+        <value>View</value>
     </labels>
 </CustomLabels>

@@ -1,5 +1,3 @@
-
-
 public with sharing class DJ_DoctorValidator{
 
     public String message = '';
