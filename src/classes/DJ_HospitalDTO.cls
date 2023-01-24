@@ -10,6 +10,10 @@ global with sharing class DJ_HospitalDTO {
     public String street;
     public String postalCode;
 
+    public DJ_HospitalDTO(){
+
+    }
+
     public DJ_HospitalDTO(Hospital__c hospital){
         hospitalId = hospital.Id;
         ambulances = (Integer) hospital.No_Ambulances__c;

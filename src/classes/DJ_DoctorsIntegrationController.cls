@@ -6,29 +6,21 @@ public with sharing class DJ_DoctorsIntegrationController {
     public String queryLastName {get; set;}
     public String queryEmail {get; set;}
     public String queryCountry {get; set;}
-    public String formDateOfBirth {get; set;}
-    public String formStartOfCareer {get; set;}
-    public Integer resultPageSize {get; set;}
-    public Integer currentPage {get; set;}
-    public Integer noOfRecords{get; set;}
     public Boolean doctorCreatorDisplayed {get; set;}
     public DJ_DoctorWrapper newDoctor {get; set;}
     public String selectedDoctorId {get; set;}
-    public Boolean isForEdit {get; set;}
+    private Boolean isForEdit {get; set;}
+    private Integer counter = 0;
 
     private final String baseEndpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
     private String accessToken;
 
 
     public DJ_DoctorsIntegrationController(){
-        resultPageSize = 10;
-        currentPage = 1;
         queryFirstName = '';
         queryLastName = '';
         queryEmail = '';
         queryCountry = '';
-        formDateOfBirth = '';
-        formStartOfCareer = '';
         doctorCreatorDisplayed = false;
         newDoctor = new DJ_DoctorWrapper();
         accessToken = DJ_AuthenticationTokenGetter.getToken();
@@ -52,46 +44,60 @@ public with sharing class DJ_DoctorsIntegrationController {
 
 
     public void openNewDoctor(){
+        newDoctor.Id = null;
         isForEdit = false;
-        newDoctor = new DJ_DoctorWrapper();
         doctorCreatorDisplayed = true;
     }
 
 
     public void openEdit (){
+        System.debug('EDIT OPEN');
         isForEdit = true;
+        newDoctor = new DJ_DoctorWrapper();
         doctorCreatorDisplayed = true;
         for(DJ_DoctorWrapper wrapper : searchDoctorsList){
             if(wrapper.Id == selectedDoctorId){
                 newDoctor = wrapper;
             }
         }
+        System.debug('EDIT OPEN ' + newDoctor);
     }
 
 
     public void closePopup(){
+        System.debug('CLOSE');
         doctorCreatorDisplayed = false;
     }
 
 
     public void saveDoctor(){
-        if(checkDates()){
+        System.debug('SAVE ' + newDoctor);
+        System.debug(isForEdit);
+        if(isForEdit){
             doctorCreatorDisplayed = false;
-            if(isForEdit){
+            if(checkDates()){
                 updateDoctor();
             }
             else{
-                postNewDoctor();
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.IntegrationDateError));
+                closePopup();
             }
         }
         else{
-            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.IntegrationDateError));
-            closePopup();
+            if(checkDates()){
+                postNewDoctor();
+            }
+            else{
+                ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.IntegrationDateError));
+                closePopup();
+
+            }
         }
     }
 
 
     public void clear(){
+        System.debug('CLEAR ' + newDoctor);
         queryFirstName = '';
         queryLastName = '';
         queryEmail = '';
@@ -100,17 +106,20 @@ public with sharing class DJ_DoctorsIntegrationController {
     }
 
 
-    public PageReference refreshPageSize() {
-        return null;
-    }
-
-
     public void deleteSelectedDoctor(){
         deleteDoctor();
     }
 
+    public void foo(){
+        System.debug(counter);
+        counter++;
+        queryEmail = String.valueOf(counter);
+        System.debug(counter);
+    }
+
 
     private void deleteDoctor(){
+        System.debug('DELETE ' + newDoctor);
         Http httpCls = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(baseEndpoint + getQueryParams());
@@ -129,6 +138,7 @@ public with sharing class DJ_DoctorsIntegrationController {
 
 
     private void postNewDoctor(){
+        System.debug('POST ' + newDoctor);
         Http httpCls = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(baseEndpoint + getQueryParams());
@@ -142,11 +152,17 @@ public with sharing class DJ_DoctorsIntegrationController {
         if(response.getStatusCode() == 200){
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.CreateSuccessful));
         }
+        else{
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'COULDNT INSERT DOCTOR'));
+        }
+        System.debug('POST ' + response);
+        closePopup();
         queryDoctors();
     }
 
 
     private void updateDoctor(){
+        System.debug('PUT ' + newDoctor);
         Http httpCls = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(baseEndpoint + getQueryParams());
@@ -160,6 +176,11 @@ public with sharing class DJ_DoctorsIntegrationController {
         if(response.getStatusCode() == 200){
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.EditSuccesful));
         }
+        else{
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR,'COULDNT UPDATE DOCTOR'));
+        }
+        System.debug('PUT ' + response.getStatusCode());
+        closePopup();
         queryDoctors();
     }
 
@@ -168,11 +189,14 @@ public with sharing class DJ_DoctorsIntegrationController {
         Http httpCls = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(baseEndpoint + getQueryParams());
+        System.debug('GET ' + queryFirstName);
+        System.debug('GET ' + getQueryParams());
         request.setHeader('Authorization','Bearer ' + accessToken);
         request.setMethod('GET');
         request.setHeader('Content-Type', 'application/json');
         HttpResponse response = httpCls.send(request);
         System.debug(response);
+        searchDoctorsList.clear();
         if(response.getStatusCode() == 200){
             searchDoctorsList = (List<DJ_DoctorWrapper>) JSON.deserialize(response.getBody(), List<DJ_DoctorWrapper>.class);
         }
@@ -180,10 +204,20 @@ public with sharing class DJ_DoctorsIntegrationController {
 
 
     private Boolean checkDates(){
-        Pattern datePattern = Pattern.compile('[0-9]{4}-[0-2][0-9]-[0-2][0-9]');
-        Matcher matchBirthDate = datePattern.matcher(newDoctor.dateOfBirth);
-        Matcher matchCareerDate = datePattern.matcher(newDoctor.startOfCareer);
-        return matchBirthDate.matches() && matchCareerDate.matches();
+        System.debug('DATES ' + newDoctor);
+        try{
+            System.debug('DATES ' + newDoctor.startOfCareer + ' ' + newDoctor.dateOfBirth);
+            Pattern datePattern = Pattern.compile('[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}');
+            Matcher matchBirthDate = datePattern.matcher(newDoctor.dateOfBirth);
+            Matcher matchCareerDate = datePattern.matcher(newDoctor.startOfCareer);
+            return matchBirthDate.matches() && matchCareerDate.matches();
+        }
+        catch(Exception e) {
+            ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.ERROR, System.Label.IntegrationDateError));
+            closePopup();
+            return false;
+        }
+
     }
 
 
@@ -193,16 +227,16 @@ public with sharing class DJ_DoctorsIntegrationController {
         }
         String result = '?';
         if(queryFirstName != ''){
-            result += 'firstName='+ String.escapeSingleQuotes(queryFirstName) + '&';
+            result += 'firstName='+ String.escapeSingleQuotes(queryFirstName.replace(' ', '+')) + '&';
         }
         if(queryLastName != ''){
-            result += 'lastName='+ String.escapeSingleQuotes(queryLastName) + '&';
+            result += 'lastName='+ String.escapeSingleQuotes(queryLastName.replace(' ', '+')) + '&';
         }
         if(queryEmail != ''){
-            result += 'email='+ String.escapeSingleQuotes(queryEmail) + '&';
+            result += 'email='+ String.escapeSingleQuotes(queryEmail.replace(' ', '+')) + '&';
         }
         if(queryCountry != ''){
-            result += 'country='+ String.escapeSingleQuotes(queryCountry);
+            result += 'country='+ String.escapeSingleQuotes(queryCountry.replace(' ', '+'));
         }
         return result;
     }
