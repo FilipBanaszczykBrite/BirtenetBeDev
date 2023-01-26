@@ -288,6 +288,13 @@
         <value>Email</value>
     </labels>
     <labels>
+        <fullName>FaxLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>FaxLabel</shortDescription>
+        <value>Fax</value>
+    </labels>
+    <labels>
         <fullName>FullAddressColumnHeader</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -302,11 +309,25 @@
         <value>Full Name</value>
     </labels>
     <labels>
+        <fullName>Helicopter_access</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Helicopter access</shortDescription>
+        <value>Helicopter access</value>
+    </labels>
+    <labels>
+        <fullName>InsertionError</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>InsertionError</shortDescription>
+        <value>All required fields must be filled before saving</value>
+    </labels>
+    <labels>
         <fullName>IntegrationDateError</fullName>
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>IntegrationDateError</shortDescription>
-        <value>Dates should be in YYYY-MM-DD format.</value>
+        <value>Invalid date. Dates should be in YYYY-MM-DD format.</value>
     </labels>
     <labels>
         <fullName>LicenseNumberColumnHeader</fullName>
@@ -323,6 +344,13 @@
         <value>Doctors found</value>
     </labels>
     <labels>
+        <fullName>NameLabel</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NameLabel</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
         <fullName>NationalityColumnHeader</fullName>
         <language>en_US</language>
         <protected>true</protected>
@@ -335,6 +363,13 @@
         <protected>true</protected>
         <shortDescription>NewDoctorButton</shortDescription>
         <value>New</value>
+    </labels>
+    <labels>
+        <fullName>NoAmbulances</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>NoAmbulances</shortDescription>
+        <value>No. ambulances</value>
     </labels>
     <labels>
         <fullName>PhoneColumneHeader</fullName>

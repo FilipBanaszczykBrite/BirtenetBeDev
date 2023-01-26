@@ -4,16 +4,16 @@
         <apex:slds />
         <apex:form id="searchForm" >
             <c:DJ_SearchSPinner id="status"/>
-            <apex:outputPanel id="createPopup">
+            <apex:outputPanel id="createPopup" rendered="{!doctorCreatorDisplayed}">
 
-                <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!doctorCreatorDisplayed}"/>
-                <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!doctorCreatorDisplayed}">
+                <apex:outputPanel styleClass="popupBackground" layout="block" />
+                <apex:outputPanel styleClass="custPopup" layout="block">
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
                         <label class="slds-form-element__label" for="text-input-id-47">
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_FirstNameColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.firstName}"></apex:inputText>
+                                            value="{!newDoctor.First_Name__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -21,7 +21,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_LastNameColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.lastName}"></apex:inputText>
+                                            value="{!newDoctor.Last_Name__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -29,15 +29,15 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.SpecialityColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.specialty}"></apex:inputText>
+                                            value="{!newDoctor.Speciality__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
                         <label class="slds-form-element__label" for="text-input-id-47">
-                            <abbr class="slds-required" title="required">* </abbr>{!$Label.NationalityColumnHeader} </label>
+                            <abbr class="slds-required" ></abbr>{!$Label.NationalityColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.nationality}"></apex:inputText>
+                                            value="{!newDoctor.Nationality__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -45,7 +45,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.BirthColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.dateOfBirth}"></apex:inputText>
+                                            value="{!formBirthDate}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -53,7 +53,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.CareerColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.startOfCareer}"></apex:inputText>
+                                            value="{!formStartCareer}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -61,7 +61,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_LicenseNumberColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.licenseNumber}"></apex:inputText>
+                                            value="{!newDoctor.License_Number__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -69,10 +69,10 @@
 
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
                         <label class="slds-form-element__label" for="text-input-id-47">
-                            <abbr class="slds-required" title="required">* </abbr>{!$Label.EmailColumnHeader} </label>
+                            <abbr class="slds-required"></abbr>{!$Label.EmailColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.email}"></apex:inputText>
+                                            value="{!newDoctor.Email__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -80,7 +80,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.PhoneColumneHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.phone}"></apex:inputText>
+                                            value="{!newDoctor.Phone__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -88,7 +88,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_StreetColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.street}"></apex:inputText>
+                                            value="{!newDoctor.Street__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -96,7 +96,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_CityColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.city}"></apex:inputText>
+                                            value="{!newDoctor.City__c}"></apex:inputText>
                         </div>
                     </div>
                     <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
@@ -104,7 +104,7 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_PostalCodeColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.postalCode}"></apex:inputText>
+                                            value="{!newDoctor.Postal_Code__c}"></apex:inputText>
                         </div>
                     </div>
 
@@ -113,12 +113,12 @@
                             <abbr class="slds-required" title="required">* </abbr>{!$Label.DJ_CountryColumnHeader} </label>
                         <div class="slds-form-element__control">
                             <apex:inputText styleClass="slds-input"
-                                            value="{!newDoctor.country}"></apex:inputText>
+                                            value="{!newDoctor.Country__c}"></apex:inputText>
                         </div>
                     </div>
-                    <apex:commandButton styleClass="slds-button slds-button_brand"  style="display: inline-block; width: 100px; margin-left: calc(50% - 105px); margin-top: 50px" value="Save" action="{!foo}" ></apex:commandButton>
+                    <apex:commandButton styleClass="slds-button slds-button_brand" status="{!$Component.searchForm.status.spinner.status}" style="display: inline-block; width: 100px; margin-left: calc(50% - 105px); margin-top: 50px" value="Save" action="{!saveDoctor}" ></apex:commandButton>
                     <apex:commandButton styleClass="slds-button slds-button_neutral" style="display: inline-block; width: 100px;" value="Cancel" action="{!closePopup}" ></apex:commandButton>
-                    <apex:commandButton styleClass="slds-button slds-button_neutral" style="display: inline-block; width: 100px;" value="Foo" action="{!foo}" ></apex:commandButton>
+
                 </apex:outputPanel>
                 <style type="text/css">
                         .custPopup{ background-color: white; border-width: 2px; border-style: solid; border-radius: 4px; border-color: rgb(140, 120, 220); z-index: 9999; left: 50%; padding:11px; position: fixed; width: 510px; height:540px; margin-left: -240px; top:150px; }
@@ -142,7 +142,7 @@
                 </div>
             </div>
             <button class="slds-button slds-button_neutral" type="button" onClick="openNewDoctorWindow()"
-                    style="width: 100px; position: absolute; right: 30px; top:20px">{!$Label.NewDoctorButton}</button>
+                    style="width: 100px; margin-left: calc(50% - 350px); margin-top:0px">{!$Label.NewDoctorButton}</button>
             <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px; margin-left:calc(50% - 220px)">
                 <label class="slds-form-element__label" for="text-input-id-47">{!$Label.SearchEmail}</label>
                 <div class="slds-form-element__control">
@@ -164,8 +164,8 @@
             <apex:pageBlockSection id="resultSection" title="{!$Label.SearchResultsTitle} ({! resultsCount } {!IF( resultsCount != 1, $Label.MultipleResultsCount, $Label.ResultsCount )})" collapsible="false"  columns="1" >
                 <apex:pageBlockTable id="searchTable" value="{! doctors }" var="doctor">
                     <apex:column style="width:10%" >
-                        <apex:commandLink reRender="none" onClick="selectDoctor('{!doctor.Id}')"> {!$Label.EditColumnHeader}&nbsp;</apex:commandLink>|
-                        <apex:commandLink reRender="none" onClick="if (window.confirm('{!$Label.DeleteConfirmation} {!doctor.firstName} {!doctor.lastName} ')) selectDoctorForDelete('{!doctor.Id}');">&nbsp;{!$Label.DeleteColumnHeader}</apex:commandLink>
+                        <apex:commandLink reRender="none" status="{!$Component.searchForm.status.spinner.status}" onClick="selectDoctor('{!doctor.Id}')"> {!$Label.EditColumnHeader}&nbsp;</apex:commandLink>|
+                        <apex:commandLink reRender="none" status="{!$Component.searchForm.status.spinner.status}" onClick="if (window.confirm('{!$Label.DeleteConfirmation} {!doctor.firstName} {!doctor.lastName} ')) selectDoctorForDelete('{!doctor.Id}');">&nbsp;{!$Label.DeleteColumnHeader}</apex:commandLink>
                     </apex:column>
                     <apex:column value="{!doctor.firstName} {!doctor.lastName}" headerValue="{!$Label.FullNameColumnHeader}" style="width:20%"/>
                     <apex:column value="{!doctor.email}" style="width:20%" headerValue="{!$Label.EmailColumnHeader}"/>

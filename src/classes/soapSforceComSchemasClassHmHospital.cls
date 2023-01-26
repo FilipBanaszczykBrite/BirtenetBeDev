@@ -2,16 +2,16 @@
 
 public class soapSforceComSchemasClassHmHospital {
     public class HM_HospitalDTO {
-        public Integer ambulances;
-        public String city;
-        public String country;
-        public String fax;
-        public Boolean helicopter;
-        public String hospitalId;
-        public String name;
-        public String phone;
-        public String postalCode;
-        public String street;
+        public Integer ambulances {get; set;} 
+        public String city {get; set;}
+        public String country {get; set;}
+        public String fax {get; set;}
+        public Boolean helicopter {get; set;}
+        public String hospitalId {get; set;}
+        public String name {get; set;}
+        public String phone {get; set;}
+        public String postalCode {get; set;}
+        public String street {get; set;}
         private String[] ambulances_type_info = new String[]{'ambulances','http://soap.sforce.com/schemas/class/HM_HospitalWebService',null,'0','1','true'};
         private String[] city_type_info = new String[]{'city','http://soap.sforce.com/schemas/class/HM_HospitalWebService',null,'0','1','true'};
         private String[] country_type_info = new String[]{'country','http://soap.sforce.com/schemas/class/HM_HospitalWebService',null,'0','1','true'};

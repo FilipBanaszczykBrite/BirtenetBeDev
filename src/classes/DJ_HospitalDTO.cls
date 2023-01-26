@@ -1,14 +1,16 @@
 global with sharing class DJ_HospitalDTO {
-    public String hospitalId;
-    public Integer ambulances;
-    public Boolean helicopter;
-    public String phone;
-    public String fax;
-    public String name;
-    public String country;
-    public String city;
-    public String street;
-    public String postalCode;
+
+
+    public String hospitalId {get; set;}
+    public Integer ambulances {get; set;}
+    public Boolean helicopter {get; set;}
+    public String phone {get; set;}
+    public String fax {get; set;}
+    public String name {get; set;}
+    public String country {get; set;}
+    public String city {get; set;}
+    public String street {get; set;}
+    public String postalCode {get; set;} 
 
     public DJ_HospitalDTO(){
 
@@ -27,10 +29,25 @@ global with sharing class DJ_HospitalDTO {
         city = hospital.City__c;
     }
 
+    public DJ_HospitalDTO(soapSforceComSchemasClassHmHospital.HM_HospitalDTO hospital){
+        hospitalId = hospital.hospitalId;
+        ambulances = (Integer) hospital.ambulances;
+        helicopter = hospital.helicopter;
+        phone = hospital.phone;
+        fax = hospital.fax;
+        street = hospital.street;
+        postalCode = hospital.postalCode;
+        name = hospital.name;
+        country = hospital.country;
+        city = hospital.city;
+    }
+
 
     public  Hospital__c dtoToHospital(){
         return new Hospital__c(Name__c=name, Id=hospitalId, Country__c=country, City__c=city, Street__c=street,
                 Postal_Code__c=postalCode, No_Ambulances__c=ambulances, Helicotper_Access__c=helicopter,
                 Phone_Number__c=phone, Fax_Number__c=fax);
     }
+
+
 }
