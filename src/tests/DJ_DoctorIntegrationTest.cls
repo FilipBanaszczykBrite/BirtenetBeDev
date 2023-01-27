@@ -1,12 +1,11 @@
-
 @IsTest
 global with sharing class DJ_DoctorIntegrationTest {
 
+    private static final String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
+    private static final String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';//TODO endopinty
 
     @IsTest
     global static void getDoctorsTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';//TODO endopinty
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';
@@ -29,8 +28,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void getDoctorsWithQueryTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(Country__c='Polska'))) + ']';
         String content = 'application/json';
@@ -56,8 +53,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void postDoctorTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor' ;
         String method = 'POST';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(First_Name__c='Janek'))) + ']';
         String content = 'application/json';
@@ -88,8 +83,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void invalidDatePostDoctorTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor' ;
         String method = 'POST';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(First_Name__c='Janek'))) + ']';
         String content = 'application/json';
@@ -119,8 +112,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void putDoctorTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor' ;
         String method = 'PUT';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(First_Name__c='Janek'))) + ']';
         String content = 'application/json';
@@ -151,8 +142,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void invalidDatePutDoctorTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor' ;
         String method = 'PUT';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(First_Name__c='Janek'))) + ']';
         String content = 'application/json';
@@ -181,8 +170,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     global static void deleteDoctorTest(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor' ;
         String method = 'DELETE';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c(First_Name__c='Janek'))) + ']';
         String content = 'application/json';
@@ -210,8 +197,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     static void testEditPopupFlags(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';
@@ -234,8 +219,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     static void testCreatePopupFlags(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';
@@ -258,8 +241,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     static void testClosePopupFlags(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';
@@ -281,8 +262,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     static void testClearQueryFields(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';
@@ -305,8 +284,6 @@ global with sharing class DJ_DoctorIntegrationTest {
 
     @IsTest
     static void testResultCount(){
-        String loginEndpoint = 'https://login.salesforce.com/services/oauth2/token';
-        String endpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
         String method = 'GET';
         String body = '[' + JSON.serialize(new DJ_DoctorWrapper(new Doctor__c())) + ']';
         String content = 'application/json';

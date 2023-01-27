@@ -1,9 +1,8 @@
-
 @IsTest
 public with sharing class DJ_MultiRequestMock  implements HttpCalloutMock{
     List<DJ_MockHttpResponse> requests;
 
-    public DJ_MultiRequestMock(List<DJ_MockHttpResponse> requests) {
+    public DJ_MultiRequestMock(List<DJ_MockHttpResponse> requests) { 
         this.requests = requests;
     }
 

@@ -1,4 +1,3 @@
-
 @IsTest
 global with sharing class DJ_MockHttpResponse implements HttpCalloutMock{
 

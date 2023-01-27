@@ -3,13 +3,16 @@ public with sharing class DJ_ContractValidationService {
     public List<Contract__c> newContracts = new List<Contract__c>();
     public List<Contract__c> allContracts = new List<Contract__c>();
     public Set<Id> doctorsIds = new Set<Id>();
+    public Boolean validation;
 
-    public DJ_ContractValidationService(List<Contract__c> newContracts){
+    private List<DJ_ContractValidationResponse> responses = new List<DJ_ContractValidationService.DJ_ContractValidationResponse>();
+    public DJ_ContractValidationService(List<Contract__c> newContracts, Boolean validation){
         this.newContracts = newContracts;
+        this.validation = validation;
     }
 
 
-    public void validateContracts(){
+    public List<DJ_ContractValidationResponse> validateContracts(){
         getDoctorsIds();
         getContractsForDoctors();
         for(Contract__c contract : newContracts){
@@ -17,6 +20,7 @@ public with sharing class DJ_ContractValidationService {
                 
             }
         }
+        return  responses;
     }
 
     @TestVisible
@@ -28,7 +32,10 @@ public with sharing class DJ_ContractValidationService {
 
 
     private void getContractsForDoctors(){
-        allContracts = [SELECT Name, Start_Date__c, End_Date__c, Hospital__c, Doctor__c FROM Contract__c WHERE Doctor__c IN :doctorsIds];
+        allContracts = [SELECT Name, Start_Date__c, End_Date__c, Hospital__c, Doctor__c FROM Contract__c WHERE Doctor__c IN :doctorsIds ORDER BY Start_Date__c ASC];
+//        for(Contract__c contract : allContracts){
+//            System.debug('VALIDATION ' + contract);
+//        }
         for(Contract__C contract : newContracts){
             allContracts.add(contract);
         }
@@ -49,7 +56,9 @@ public with sharing class DJ_ContractValidationService {
     private Boolean validateContractsForDoctor(Contract__c newContract, List<Contract__c> contracts){
         Map<Id, List<Contract__c>> contractsByHospitals = mapContractsByHospitals(contracts);
         for(Id hospitalId : contractsByHospitals.keySet()){
-            if(areHospitalContractsOverlapping(newContract, contractsByHospitals.get(hospitalId))){
+            DJ_ContractValidationResponse response = areHospitalContractsOverlapping(newContract, contractsByHospitals.get(hospitalId));
+            if(response.areOverlapping){
+                responses.add(response);
                 return false;
             }
         }
@@ -75,15 +84,18 @@ public with sharing class DJ_ContractValidationService {
     }
 
     @TestVisible
-    private Boolean areHospitalContractsOverlapping(Contract__c newContract, List<Contract__c> contracts){
+    private DJ_ContractValidationResponse areHospitalContractsOverlapping(Contract__c newContract, List<Contract__c> contracts){
             for(Contract__c contract : contracts){
             	if(datesOverlap(newContract, contract) && newContract.Id != contract.Id){
                 	String params = 'Overlapping contract: ' + contract.Name + ' ' +
                         contract.Start_Date__c.format() + ' - ' + contract.End_Date__c.format();
-                	newContract.addError(System.Label.DJ_Overlapping_Contracts + ' ' + params); 
+                    if(validation){
+                        newContract.addError(System.Label.DJ_Overlapping_Contracts + ' ' + params);
+                    }
+                    return new DJ_ContractValidationResponse(true, newContract, contract);
                 }
             }
-        return false;
+        return new DJ_ContractValidationResponse(false, newContract, null);
     }
 
 
@@ -98,5 +110,17 @@ public with sharing class DJ_ContractValidationService {
             return true;
         }
         return false;
+    }
+
+    public class DJ_ContractValidationResponse{
+        public Boolean areOverlapping;
+        public Contract__c first;
+        public Contract__c second;
+
+        public DJ_ContractValidationResponse(Boolean areOverlapping, Contract__c first, Contract__c second){
+            this.areOverlapping = areOverlapping;
+            this.first = first;
+            this.second = second;
+        }
     }
 }

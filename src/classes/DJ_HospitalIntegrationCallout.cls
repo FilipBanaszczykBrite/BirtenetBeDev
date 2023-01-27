@@ -39,7 +39,7 @@ public with sharing class DJ_HospitalIntegrationCallout {
             apiSH.sessionId = sessionId;
             apiO.SessionHeader = apiSH;
             List<String> removed = apiO.deleteHospitals(new List<String>{id});
-            return removed == null;
+            return removed != null;
         }
         catch (Exception e){
             login();
@@ -47,7 +47,7 @@ public with sharing class DJ_HospitalIntegrationCallout {
         apiSH.sessionId = sessionId;
         apiO.SessionHeader = apiSH;
         List<String> removed = apiO.deleteHospitals(new List<String>{id});
-        return removed == null;
+        return removed != null;
     }
 
 
@@ -59,7 +59,8 @@ public with sharing class DJ_HospitalIntegrationCallout {
             apiSH.sessionId = sessionId;
             apiO.SessionHeader = apiSH;
             List<String> inserted = apiO.insertHospitals(new List<soapSforceComSchemasClassHmHospital.HM_HospitalDTO>{dto});
-            return inserted == null;
+            System.debug('INSERTED ' + inserted==null);
+            return inserted != null;
         }
         catch (Exception e){
             login();
@@ -67,7 +68,8 @@ public with sharing class DJ_HospitalIntegrationCallout {
         apiSH.sessionId = sessionId;
         apiO.SessionHeader = apiSH;
         List<String> inserted = apiO.insertHospitals(new List<soapSforceComSchemasClassHmHospital.HM_HospitalDTO>{dto});
-        return inserted == null;
+        System.debug('INSERTED ' + inserted==null);
+        return inserted != null;
     }
 
 
@@ -79,7 +81,8 @@ public with sharing class DJ_HospitalIntegrationCallout {
             apiSH.sessionId = sessionId;
             apiO.SessionHeader = apiSH;
             List<String> updated = apiO.updateHospitals(new List<soapSforceComSchemasClassHmHospital.HM_HospitalDTO>{dto});
-            return updated == null;
+            System.debug('Updated ' + updated);
+            return updated != null;
         }
         catch (Exception e){
             login();
@@ -87,6 +90,7 @@ public with sharing class DJ_HospitalIntegrationCallout {
         apiSH.sessionId = sessionId;
         apiO.SessionHeader = apiSH;
         List<String> updated = apiO.updateHospitals(new List<soapSforceComSchemasClassHmHospital.HM_HospitalDTO>{dto});
-        return updated == null;
+        System.debug('UPDATED ' + updated);
+        return updated != null;
     }
 }

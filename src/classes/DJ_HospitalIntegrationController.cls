@@ -7,8 +7,8 @@ public with sharing class DJ_HospitalIntegrationController {
     public Boolean hospitalCreatorDisplayed { get; set; }
     public soapSforceComSchemasClassHmHospital.HM_HospitalDTO newHospital { get; set; }
     public String selectedHospitalId { get; set; }
+    public Boolean isForEdit { get; set; }
 
-    private Boolean isForEdit { get; set; }
     private DJ_HospitalIntegrationCallout callout = new DJ_HospitalIntegrationCallout();
 
 
@@ -87,6 +87,8 @@ public with sharing class DJ_HospitalIntegrationController {
 
 
     private void postHospital(){
+        Boolean response = callout.postHospital(newHospital);
+        System.debug('RESPONSE ' + response);
         if(callout.postHospital(newHospital)){
             ApexPages.addMessage(new ApexPages.Message(ApexPages.Severity.INFO, System.Label.CreateSuccessful));
         }

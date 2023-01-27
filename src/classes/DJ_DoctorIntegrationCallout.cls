@@ -1,9 +1,7 @@
-
-
 public with sharing class DJ_DoctorIntegrationCallout {
 
     private String accessToken;
-    private final String baseEndpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';//TODO do custom settingsow
+    private final String baseEndpoint = 'https://wise-fox-flobac-dev-ed.trailblaze.my.salesforce.com/services/apexrest/v1/Doctor';
 
     public DJ_DoctorIntegrationCallout(){
         accessToken = DJ_AuthenticationTokenGetter.getToken();

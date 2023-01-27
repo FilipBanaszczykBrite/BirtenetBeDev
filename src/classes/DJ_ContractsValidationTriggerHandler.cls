@@ -3,15 +3,15 @@ public with sharing class DJ_ContractsValidationTriggerHandler implements DJ_Tri
     private DJ_ContractValidationService conValService;
 
     public void beforeInsert(List<SObject> newRecords) {
-        conValService = new DJ_ContractValidationService(newRecords);
+        conValService = new DJ_ContractValidationService(newRecords, true);
         conValService.validateContracts();
     }
 
     
     public void beforeUpdate(List<SObject> oldRecords, List<SObject> newRecords, Map<Id, SObject> oldRecordMap, Map<Id, SObject> newRecordMap) {
-        conValService = new DJ_ContractValidationService(newRecords);
+        conValService = new DJ_ContractValidationService(newRecords, true);
         conValService.validateContracts();
-    }
+    } 
 
     
     public void beforeDelete(List<SObject> oldRecords, Map<Id, SObject> oldRecordMap) {

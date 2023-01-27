@@ -1,5 +1,3 @@
-
-
 global with sharing class DJ_MultiSoapMock implements WebServiceMock{
     List<DJ_MockWebService> requests;
 

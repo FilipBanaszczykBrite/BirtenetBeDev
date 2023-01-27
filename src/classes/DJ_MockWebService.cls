@@ -1,15 +1,7 @@
-
 @isTest
 global with sharing class DJ_MockWebService implements WebServiceMock{
 
-    public String method;
-
-    public DJ_MockWebService(String method){
-        this.method = method;
-
-    }
-
-
+    
     global void doInvoke(
             Object stub,
             Object request,
