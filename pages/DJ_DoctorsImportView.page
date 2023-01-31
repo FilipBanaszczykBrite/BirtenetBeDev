@@ -1,0 +1,53 @@
+<apex:page id="DJ_DoctorsImportView" controller="DJ_DoctorsImportController">
+    <apex:pageBlock title="Import Doctors">
+        <apex:pageMessages />
+
+        <apex:form id="form">
+            <label  style="border: 1px solid rgb(181, 181, 181); border-bottom-color: rgb(127, 127, 127); border-radius: 3px; display: inline-block;
+             cursor: pointer; width:95px; height:16px; margin-left:1px; margin-bottom:10px; font-weight:bold;
+              font-size:11px; padding-top:5px; padding-left: 3px; background: linear-gradient(0deg, rgba(239,239,239,1) 0%, rgba(253,253,253,1) 100%); color: rgb(51,51,51)">
+                {!$Label.DJ_ChooseFileButton}
+                <apex:inputFile style="display: none" value="{! csvFileBody }"  fileName="{! fileName }" accept=".csv, .txt" onChange="inputFile()"/>
+                <apex:actionFunction name="inputFile" action="{! enableRead }"></apex:actionFunction>
+            </label>
+            <apex:outputText style="margin-left:5px" value="{! fileName }"></apex:outputText>
+
+            <br/>
+            <actionRegion >
+                <apex:commandButton id="readButton" disabled="{! !fileChosen }" style="margin-bottom:10px; width: 100px; text-align: left" value="{!$Label.DJ_ReadFileButton}" action="{! importCSVFile }"></apex:commandButton>
+
+            </actionRegion>
+            <apex:actionFunction name="checkboxCheck" action="{! checkSelected }"></apex:actionFunction>
+                <apex:pageBlockTable rendered="{! fileRead}"  id="doctorsTable" value="{!doctors}" var="doctor">
+                    <apex:column width="3%">
+                        <apex:inputCheckbox value="{!doctor.selected}" onChange="checkboxCheck()"></apex:inputCheckbox>
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_FirstNameColumnHeader}" width="8%" value="{!doctor.doctor.First_Name__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_LastNameColumnHeader}" width="12%" value="{!doctor.doctor.Last_Name__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_CountryColumnHeader}" width="10%" value="{!doctor.doctor.Country__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_CityColumnHeader}" width="12%" value="{!doctor.doctor.City__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_StreetColumnHeader}" width="10%" value="{!doctor.doctor.Street__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_PostalCodeColumnHeader}" width="8%" value="{!doctor.doctor.Postal_Code__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_LicenseNumberColumnHeader}" width="8%" value="{!doctor.doctor.License_Number__c}">
+                    </apex:column>
+                    <apex:column headerValue="{!$Label.DJ_StatusColumnHeader}" width="36%" >
+                        <font color="{!if(doctor.status=$Label.DJ_SuccessImport || doctor.status=$Label.DJ_ImportReadStatus ,'#008800','#990000')}">
+                            <apex:outputtext value="{! doctor.status }" />
+                        </font>
+                    </apex:column>
+                </apex:pageBlockTable>
+                <actionRegion rendered="{! fileRead}">
+                    <apex:commandButton rendered="{! fileRead}" style="width:100px; display:inline; margin-top:10px" value="{!$Label.DJ_SelectAllButton}" action="{! selectAll }"></apex:commandButton>
+                    <apex:commandButton rendered="{! fileRead}" style="width:100px; display:inline" value="{!$Label.DJ_DeselectAllButton}"  action="{! deselectAll }" ></apex:commandButton>
+                    <apex:commandButton rendered="{! fileRead}" style="width:100px; display:inline" value="{!$Label.DJ_InvertSelectionButton}" action="{! invertSelection }"></apex:commandButton>
+                    <apex:commandButton rendered="{! fileRead}" disabled="{! !doctorSelected }" style="width:60px; display:inline; margin-left: calc(50% - 330px)" value="{!$Label.DJ_ImportButton}" action="{! importDoctors }"></apex:commandButton>
+                </actionRegion>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

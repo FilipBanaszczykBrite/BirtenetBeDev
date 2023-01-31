@@ -1,0 +1,102 @@
+<apex:page id="DJ_OrganizationInfoView" controller="DJ_OrganizationInfoController">
+    <apex:pageBlock >
+        <apex:slds />
+        <apex:form id="form">
+            <apex:pageMessages />
+            <apex:outputText  style="color: rgb(70, 70, 70); font-weight: bold; font-size: 16px; margin: 5px; display:block" value="Organization Information"></apex:outputText>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-left: calc(50% - 220px); margin-bottom: 10px;">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.NameLabel} </label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!org.Name}"></apex:outputText>
+                </div>
+            </div>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_PrimaryContact}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!org.primaryContact}"></apex:outputText>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block;  margin:20px; margin-bottom: 10px; margin-left: calc(50% - 220px);">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_License} </label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!org.organizationType}"></apex:outputText>
+                </div>
+            </div>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block;  margin:20px; margin-bottom: 10px;">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_Sandbox}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="">{!IF(org.isSandbox, 'Yes', 'No')}</apex:outputText>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px; margin-left: calc(50% - 220px);">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_ApexClasses}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!apexClasses}"></apex:outputText>
+                </div>
+            </div>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_VisualForcePages}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!vfPages}"></apex:outputText>
+                </div>
+            </div>
+            <br/>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px; margin-left: calc(50% - 220px);">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_UsedLicenses}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!usedLicenses}"></apex:outputText>
+                </div>
+            </div>
+            <div class="slds-form-element" style="width:200px; height:30px; display: inline-block; margin:20px; margin-bottom: 10px;">
+                <label class="slds-form-element__label" for="text-input-id-47">
+                    {!$Label.DJ_RemainingLicenses}</label>
+                <div class="slds-form-element__control">
+                    <apex:outputText style="color: rgb(70, 70, 70); font-size: 15px;" value="{!remainingLicenses}"></apex:outputText>
+                </div>
+            </div>
+            <br/>
+            <apex:outputText  style="color: rgb(70, 70, 70); font-weight: bold; font-size: 16px; margin: 5px" value="Users"></apex:outputText>
+            <apex:pageBlockTable styleClass="slds-table" style="margin-top:5px" value="{!organizationUsers}" var="userr">
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_FirstNameColumnHeader}" value="{!userr.firstName}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_LastNameColumnHeader}" value="{!userr.lastName}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_UsernameColumnHeader}" value="{!userr.userName}">
+                </apex:column>
+                <apex:column styleClass="slds-col" style="{!IF(userr.isActive,'color:green','color:red')}" headerValue="{!$Label.DJ_IsActiveColumnHeader}">
+                    {!IF(userr.isActive,'Active','Inactive')}
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_ProfileColumneHeader}" value="{!userr.profileName}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_LicenseColumnHeader}" value="{!userr.licenseName}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_ActionColumnHeader}">
+                    <apex:outputLink value="/{!userr.Id}">{!$Label.ViewColumnHeader}</apex:outputLink> |&nbsp;
+                    <apex:commandLink reRender="none" onClick="if (window.confirm('{!$Label.DeleteConfirmation} {!userr.firstName} {!userr.lastName}')) userChangeActive('{!userr.Id}');">{!IF(userr.isActive, 'Deactivate', 'Activate')}</apex:commandLink>
+                </apex:column>
+            </apex:pageBlockTable>
+            <apex:actionFunction name="userChangeActive" action="{!changeActiveUser}" reRender="form">
+                <apex:param name="Id" value="" assignTo="{!selectedUserId}"></apex:param>
+            </apex:actionFunction>
+            <br/>
+                <apex:outputText style="color: rgb(70, 70, 70); font-weight: bold; font-size: 16px; margin: 5px" value="User Licenses"></apex:outputText>
+            <apex:pageBlockTable styleClass="slds-table" style="margin-top:5px" value="{!userLicenses}" var="license">
+                <apex:column styleClass="slds-col" headerValue="{!$Label.NameLabel}" value="{!license.Name}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_UsedColumnHeader}" value="{!license.UsedLicenses}">
+                </apex:column>
+                <apex:column styleClass="slds-col" headerValue="{!$Label.DJ_RemainingColumnHeader}" >{! (license.TotalLicenses - license.UsedLicenses)}
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

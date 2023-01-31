@@ -1,0 +1,5 @@
+<apex:page id="vfPage">
+<apex:form >
+<apex:inputText label="Birth Date"  onfocus="DatePicker.pickDate(false, this, false);"/>
+</apex:form>
+</apex:page>
